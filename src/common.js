@@ -962,6 +962,39 @@ export function isAuthed() {
   return authed;
 }
 
+let userWriteRelaysCache = { pubkey: null, relays: null };
+
+// fetch the logged-in user's write relays from their kind 10002 (NIP-65),
+// cached per pubkey so a login change triggers a refresh automatically
+async function getUserWriteRelays() {
+  const pubkey = getLoginPubkey();
+  if (!pubkey || isGuest(pubkey)) return [];
+  if (
+    userWriteRelaysCache.pubkey === pubkey &&
+    userWriteRelaysCache.relays !== null
+  )
+    return userWriteRelaysCache.relays;
+
+  let relays = [];
+  try {
+    const ndk = await getNDK();
+    const events = await fetchAllEvents([
+      startFetch(ndk, { kinds: [cs.KIND_RELAY_LIST], authors: [pubkey] }),
+    ]);
+    if (events.length) {
+      for (const t of getTags(events[0], 'r')) {
+        if (t.length < 2) continue;
+        const marker = t.length > 2 ? t[2] : '';
+        if (marker === '' || marker === 'write') relays.push(t[1]);
+      }
+    }
+  } catch (e) {
+    console.error('failed to fetch NIP-65 (kind 10002) relays', e);
+  }
+  userWriteRelaysCache = { pubkey, relays };
+  return relays;
+}
+
 export async function publishEvent(event) {
   if (!isAuthed()) {
     return { error: 'Please authorize' };
@@ -973,7 +1006,10 @@ export async function publishEvent(event) {
   ndkEvent.content = event.content;
   ndkEvent.tags = event.tags;
   ndkEvent.created_at = Math.floor(Date.now() / 1000);
-  const relaySet = NDKRelaySet.fromRelayUrls(writeRelays, ndk);
+  // respect the user's NIP-65 write relays in addition to the app defaults
+  const userRelays = await getUserWriteRelays();
+  const relays = [...new Set([...writeRelays, ...userRelays])];
+  const relaySet = NDKRelaySet.fromRelayUrls(relays, ndk);
   const r = await ndkEvent.publish(relaySet);
   return true;
 }
