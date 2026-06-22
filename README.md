@@ -1,5 +1,9 @@
 # Nostr App Manager
 
+> **Note:** This is a fork of [nostr-app-manager](https://github.com/nostrband/nostr-app-manager)
+> hosted on [nostter.app](https://nostter.app) to keep the service available while the original
+> site ([nostrapp.link](https://nostrapp.link)) is down.
+
 Every day new apps are created by awesome Nostr devs.
 
 Every minute three new event kinds are invented by Pablo.
