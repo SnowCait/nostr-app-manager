@@ -197,18 +197,18 @@ const AppEditForm = (props) => {
         );
         event.tags = event.tags.filter((tag) => tag[0] !== 'zap');
 
-        event.tags.push(['zap', AUTHOR_PUBKEY, 'wss://relay.nostr.band', '9']);
+        event.tags.push(['zap', AUTHOR_PUBKEY, cs.RELAY_HINT, '9']);
         event.tags.push([
           'zap',
           PUBLISHER_PUBKEY,
-          'wss://relay.nostr.band',
+          cs.RELAY_HINT,
           '1',
         ]);
         event.tags = event.tags.filter((tag) => tag[0] !== 'p');
         event.tags.push([
           'p',
           AUTHOR_PUBKEY,
-          'wss://relay.nostr.band',
+          cs.RELAY_HINT,
           'author',
         ]);
       }

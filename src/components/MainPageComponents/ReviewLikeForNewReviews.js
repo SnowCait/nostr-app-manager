@@ -3,7 +3,7 @@ import Heart from '../../icons/Heart';
 import * as cmn from '../../common';
 import { useAuthShowModal } from '../../context/ShowModalContext';
 import LikedHeart from '../../icons/LikedHeart';
-import { KIND_LIKE, KIND_REMOVE_EVENT } from '../../const';
+import { KIND_LIKE, KIND_REMOVE_EVENT, RELAY_HINT } from '../../const';
 
 const NewReviewLike = ({ review }) => {
   const [like, setLike] = useState(review.like);
@@ -22,8 +22,8 @@ const NewReviewLike = ({ review }) => {
         const event = {
           kind: KIND_LIKE,
           tags: [
-            ['p', loginPubkey, 'wss://relay.nostr.band'],
-            ['e', review.id, 'wss://relay.nostr.band'],
+            ['p', loginPubkey, RELAY_HINT],
+            ['e', review.id, RELAY_HINT],
           ],
           content: '+',
         };

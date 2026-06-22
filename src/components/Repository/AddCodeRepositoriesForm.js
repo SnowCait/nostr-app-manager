@@ -6,6 +6,7 @@ import {
   optionsLicensies,
   programmingLanguages,
   validationSchemaForFormAddApp,
+  RELAY_HINT,
 } from '../../const';
 import * as cmn from '../../common';
 import CreatableSelect from 'react-select/creatable';
@@ -73,9 +74,9 @@ const CodeRepositoryForm = () => {
       const PUBLISHER_PUBKEY = pubkey;
 
       event.tags.push(
-        ['zap', AUTHOR_PUBKEY, 'wss://relay.nostr.band', '9'],
-        ['zap', PUBLISHER_PUBKEY, 'wss://relay.nostr.band', '1'],
-        ['p', AUTHOR_PUBKEY, 'wss://relay.nostr.band', 'author']
+        ['zap', AUTHOR_PUBKEY, RELAY_HINT, '9'],
+        ['zap', PUBLISHER_PUBKEY, RELAY_HINT, '1'],
+        ['p', AUTHOR_PUBKEY, RELAY_HINT, 'author']
       );
     }
     event.tags = event.tags.filter((tag) => tag[1]);

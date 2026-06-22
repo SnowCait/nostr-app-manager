@@ -20,7 +20,6 @@ let onNostrHandlers = [];
 let nostrEnabled = false;
 
 const readRelays = [
-  'wss://relay.nostr.band/all',
   'wss://nos.lol',
   'wss://relay.damus.io',
   'wss://relay.primal.net',
@@ -1040,7 +1039,7 @@ export async function publishRecomms(app, kinds, platforms, selectedKinds) {
           (t) => t.length >= 4 && t[0] === 'a' && t[1] === a && t[3] === p
         ) === undefined
       ) {
-        event.tags.push(['a', a, 'wss://relay.nostr.band', p]);
+        event.tags.push(['a', a, cs.RELAY_HINT, p]);
         changed = true;
       }
     }
