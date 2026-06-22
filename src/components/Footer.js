@@ -5,7 +5,8 @@ const Footer = () => {
     <Container>
       <footer className="mt-5 mb-2 ">
         <a href="https://github.com/nostrband/nostr-app-manager">Open-source</a>{' '}
-        app by <a href="https://nostr.band">nostr.band</a>
+        app by <a href="https://nostr.band">nostr.band</a>, hosted on{' '}
+        <a href="https://nostter.app">nostter.app</a>
       </footer>
     </Container>
   );
