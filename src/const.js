@@ -10,6 +10,8 @@ export const KIND_NOTES = 1;
 export const KIND_REVIEW = 1985;
 export const KIND_REPOSITORY = 30117;
 
+export const RELAY_HINT = 'wss://nos.lol/';
+
 // https://www.npmjs.com/package/platform-detect#osmjs + web
 export const platforms = [
   'web',

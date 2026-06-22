@@ -5,7 +5,7 @@ import { useAuthShowModal } from '../../../context/ShowModalContext';
 import LikedHeart from '../../../icons/LikedHeart';
 import { useNewReviewState } from '../../../context/NewReviewsContext';
 import { toast } from 'react-toastify';
-import { KIND_LIKE, KIND_REMOVE_EVENT } from '../../../const';
+import { KIND_LIKE, KIND_REMOVE_EVENT, RELAY_HINT } from '../../../const';
 
 const ReviewLike = ({
   review,
@@ -44,8 +44,8 @@ const ReviewLike = ({
         const event = {
           kind: KIND_LIKE,
           tags: [
-            ['p', loginPubkey, 'wss://relay.nostr.band'],
-            ['e', review.id, 'wss://relay.nostr.band'],
+            ['p', loginPubkey, RELAY_HINT],
+            ['e', review.id, RELAY_HINT],
           ],
           content: '+',
         };
